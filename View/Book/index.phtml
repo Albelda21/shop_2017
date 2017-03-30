@@ -1,0 +1,48 @@
+<h1>Art Books list</h1>
+<hr>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <?php foreach ($pagination->buttons as $button) :
+        if ($button->isActive) : ?>
+            <li><a href="?page=<?=$button->page?>"><?=$button->text?></a></li>
+        <?php else : ?>
+            <li class='disabled'><a href="#"><?=$button->text?></a></li>
+        <?php endif;
+    endforeach; ?>  
+      
+  </ul>
+</nav>
+
+<div class="row">
+    <?php foreach ($books as $book) : ?>
+        <div class="col-md-3">
+            <div class="thumbnail" style="height:400px;">
+                <img class="img-responsive" src="http://d39kbiy71leyho.cloudfront.net/wp-content/uploads/2016/05/09170020/cats-politics-TN.jpg"></img>
+                <div class="caption">
+                    <h3><?=$book->getTitle()?></h3>
+                    <p><?=$book->getPrice()?></p>
+                    <p><?=$book->getId()?></p>
+                    <p>
+                        <a href="/horror-<?=$book->getId()?>.html" class="btn btn-primary" role="button">Details</a> 
+                       
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+    <?php endforeach; ?>
+</div>
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <?php foreach ($pagination->buttons as $button) :
+        if ($button->isActive) : ?>
+            <li><a href="?page=<?=$button->page?>"><?=$button->text?></a></li>
+        <?php else : ?>
+            <li class='disabled'><a href="#"><?=$button->text?></a></li>
+        <?php endif;
+    endforeach; ?>  
+      
+  </ul>
+</nav>
+

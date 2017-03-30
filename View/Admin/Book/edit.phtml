@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div class="container">
+
+	<?=\Library\Session::getFlash()?>
+
+<form method="post">
+	ID :<input type="" name="id" value="<?=$request->get('id')?>" disabled><br>
+	TITLE :<input type="text" name="title" value="<?=$book->getTitle()?>"><br>
+	Price : <input type="text" name="price" value="<?=$book->getPrice()?>"><br>
+	Sale : <input type="text" name="sale" value="<?=$book->getSale()?>"><br>
+	DESCRIPTION :<textarea name="description" class="form-control"  rows="5" ><?=$book->getDescription()?></textarea>
+
+	<button>SAVE</button>
+	<!--<a class="btn btn-primary btn-xs" href="/admin/books/save/<?=$book->getId()?>">Save</a>-->
+</form>
+
+</div>
+</body>
+</html>
+

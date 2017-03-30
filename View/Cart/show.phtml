@@ -1,0 +1,8 @@
+<h1>My cart</h1>
+<hr>
+
+<?php foreach ($books as $book): ?>
+    <b><?=$book->getId();?></b> - <?=$book->getTitle();?> <br>
+<?php endforeach; ?>
+
+

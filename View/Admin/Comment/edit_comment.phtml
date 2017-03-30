@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div class="container">
+
+    <?=\Library\Session::getFlash()?>
+
+<form method="post">
+    ID :<input type="" name="id" value="<?=$request->get('id')?>" disabled><br>
+    
+    Comment :<textarea name="comment" class="form-control"  rows="5"><?=$comment->getComment()?></textarea>
+
+    <button>SAVE</button>
+    
+</form>
+
+</div>
+</body>
+</html>
+

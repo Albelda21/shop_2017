@@ -1,0 +1,38 @@
+<table width='100%'>
+    <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Sale</th>
+        <th>Actions</th>
+    </tr>
+    <?php foreach ($books as $book) : ?>
+    <tr>
+        <td>
+            <?=$book->getTitle();?>
+            <hr>
+        </td>
+        <td>
+            <?=$book->getPrice();?>
+            <hr>
+        </td>
+        <td >
+        <?php if ($book->getSale() != ''): ?>
+            <b><i><?=$book->getSale();?></b></i>
+        <?php else: ?>
+            <?= "<b>---</b>"?>
+        <?php endif ?>
+            
+            <hr>
+        </td>
+        <td>
+            <a class="btn btn-primary btn-xs" href="/admin/books/edit/<?=$book->getId()?>">Edit... </a>
+            
+            <a class="btn btn-danger btn-xs" href="/admin/books/delete/<?=$book->getId()?>">Delete</a><br><br>
+           
+           
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+

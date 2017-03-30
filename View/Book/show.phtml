@@ -1,0 +1,118 @@
+<h1><?=$book->getTitle()?></h1>
+<hr>
+
+<div class="row">
+    <div class="col-md-3 col-sm-12 col-xs-12">
+        <img class="img-responsive" src="http://d39kbiy71leyho.cloudfront.net/wp-content/uploads/2016/05/09170020/cats-politics-TN.jpg"> <br> Watching now : <?= rand(1,7)?></img>
+    </div>
+
+    <?=\library\Session::getFlash()?>
+    
+    <div class="col-md-9 col-sm-12 col-sm-12">
+        <h3><?=$book->getTitle()?></h3>
+        	<?php if ($book->getSale() != NULL): ?>
+        	<strike><?=$book->getPrice()?></strike><br>
+        	<i style="background-color: lightgreen">SALE : <?=$book->getSale()?></i> 
+        	<?php else :?>
+    		<p><?=$book->getPrice()?></p>
+        	<?php endif ?>        
+        	<p style="border: 1px solid lightblue; border-radius: 7px;"><?=$book->getDescription()?></p>
+          
+        <a href="/cart/add/<?=$book->getId()?>" class="btn btn-primary" role="button">To cart</a><br><br>
+         <b>Comments: </b><br>
+        <div class="container">
+
+<!-- this is mys be removed!-->
+
+<?php
+        echo "<table class='table table-bordered' style='width: 70%;'>";
+
+        echo "<tr></tr>";
+
+        class TableRows extends RecursiveIteratorIterator { 
+            function __construct($it) { 
+                parent::__construct($it, self::LEAVES_ONLY); 
+            }
+
+            function current() {
+                return "<td style='width:50px;border:1px solid black;'>" . parent::current(). "</td>";
+            }
+
+            function beginChildren() { 
+                echo "<tr>"; 
+            } 
+
+            function endChildren() { 
+                echo "</tr>" . "\n";
+            } 
+        } 
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "mvc0609";
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $conn->prepare("SELECT comment FROM comment WHERE books_id = '" . $_GET['id'] . "'"); 
+            $stmt->execute();
+
+            // set the resulting array to associative
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC); 
+            foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) { 
+                echo $v;
+            }
+        }
+        catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+        echo "</table>";
+        ?>
+</div><br>
+
+        <?php if (!\Library\Session::has('user')): ?>
+               <form method="post" action="/book-<?=$book->getId()?>.html">
+                    <div class="form-group">
+                        <div class="alert alert-info">
+                        <strong>Info!</strong> You have to login to left the comment.<br>
+                        <a href="/login"><strong>Login here</strong></a> or <a href="/register"><strong>Register here</strong></a>
+                        </div>
+
+                        
+                       
+                        <label for="comment">No login? No comment for you, this is real world :)</label>
+                        <textarea name="comment" class="form-control" rows="5" id="comment" disabled></textarea>
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" class="form-control" disabled>
+                    </div>
+                <button name="button" class="btn btn-primary" disabled>Send comment</button>
+        </form>
+        <?php else: ?>
+             <form method="post" action="/book-<?=$book->getId()?>.html">
+                    <div class="form-group">
+                   
+                        <label for="comment">Leave your comment for this book:</label>
+                        <textarea name="comment" class="form-control" rows="5" id="comment"></textarea>
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+                <button name="button" class="btn btn-primary" >Send comment</button>
+        </form>
+        <?php endif ?>
+
+        
+       
+                
+       
+    </div>
+</div><br><br>
+
+
+
+
+
+
+
+
