@@ -152,5 +152,30 @@ class BookRepository extends EntityRepository
     {
         echo 'Yes we did it!';
     }
+
+    public function topComments()
+    {
+        $sth = $this->pdo->query('SELECt title, books_id, COUNT(comment) FROM comment JOIN books On comment.books_id=books.id GROUP BY books_id ORDER BY sum(comment) desc limit 2');
+        $topcomments = [];
+        
+        while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+                        
+            $top = (new Comment())
+                ->setTitle((new Book)->getTitle)
+                ->setBookId($row['books_id'])
+                ->setComment($row['comment'])
+               
+            ;
+            
+            
+            $topcomments[] = $top;
+        }
+
+        return $topcomments;
+
+    }
+
+
+    // SELECt title, books_id, COUNT(comment) FROM comment JOIN books On comment.books_id=books.id GROUP BY books_id ORDER BY sum(comment) desc limit 2
 }
 
