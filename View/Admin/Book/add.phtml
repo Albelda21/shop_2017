@@ -1,0 +1,19 @@
+<b style="color: red"><?=\Library\Session::getFlash()?></b>
+
+<h1>WE ARE IN ADD</h1>
+
+
+
+<form method="post">
+    Titel: <input id='title'  class="form-control" type="text" name="title" value="<?=$form->title?>"><br>
+    Description: <input id='description' class="form-control" type="text" name="description" value="<?=$form->description?>" required><br>
+    Price: <input  id='price' class="form-control" type="text" name="price" value="<?=$form->price?>" required>
+    <br>
+    Sale: <input  id='sale' class="form-control" type="text" name="sale" value="<?=$form->sale?>" required>
+    <br>
+    1 - Horror, 2 - Art
+    Style: <input id='style' class="form-control" type="text" name="style" pattern="^[1-2]{1}$" value="<?=$form->style?>" required>
+    <br>
+    <button class="btn btn-success">Go</button>
+</form>
+

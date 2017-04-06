@@ -60,17 +60,41 @@ class BookController extends Controller
         return $this->render('edit.phtml', ['request' => $request, 'form' => $form, 'book' => $book]);
     }
     
-    // public function newAction(Request $request)
-    // {
+    public function addAction(Request $request)
+    {
+        $form = new BookForm($request);
+        $repo = $this->container->get('repository_manager')->getRepository('Book');
         
-    // }
+        if ($request->isPost()) {
+            if ($form->isValid()) {
+                $book = (new Book())
+                    ->setTitle($form->title)
+                    ->setDescription($form->description)
+                    ->setPrice($form->price)
+                    ->setSale($form->sale)
+                    ->setStyle($form->style)
+                ;
+                
+                $repo->add($book);
+                Session::setFlash('Book has been added');
+                $this->container->get('router')->redirect('/admin/add');
+            }
+            
+            Session::setFlash('Fill the fields');
+        }
+        
+        
+        return $this->render('add.phtml', ['form' => $form]);
+    }
     
-    // public function deleteAction(Request $request)
-    // {
-    //     $id = $request->get('id');
-    //     $this->container->get('repository_manager')->getRepository('Book')->removeById($id);
-    //     Router::redirect('/admin/books');  
-    // }
+    public function deleteAction(Request $request)
+    {
+        $id = $request->get('id');
+        $book = $this->container->get('repository_manager')->getRepository('Book')->find($id);
+        $this->container->get('repository_manager')->getRepository('Book')->removeById($id);
+        Session::setFlash('Book have been deleted!');
+        Router::redirect('/admin/books');  
+    }
 
     
 }

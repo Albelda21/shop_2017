@@ -13,12 +13,13 @@ class CommentRepository extends EntityRepository
         $class = end($class);
         $table = strtolower($class);
         
-        $sql = 'insert into comment (books_id, email, comment) values (:books_id, :email, :comment)';
+        $sql = 'insert into comment (books_id, email, comment, active) values (:books_id, :email, :comment, :active)';
         $sth = $this->pdo->prepare($sql);
         $sth->execute(array(
             'books_id' => $object->getBookId(),
             'email' => $object->getEmail(),
-            'comment' => $object->getComment()
+            'comment' => $object->getComment(),
+            'active' => $object->getActive()
            
         ));
     }
@@ -70,7 +71,8 @@ class CommentRepository extends EntityRepository
                 ->setId($row['id'])
                 ->setBookId($row['books_id'])
                 ->setEmail($row['email'])
-                ->setComment($row['comment'])                
+                ->setComment($row['comment'])  
+                ->setActive($row['active'])              
             ;
             
             
@@ -93,18 +95,25 @@ class CommentRepository extends EntityRepository
         return (new Comment())
             ->setId($data['id'])
             ->setComment($data['comment'])
+            ->setActive($data['active'])
             ;
     }
 
     public function saveComment(Comment $comment)
     {
         // if id === null - insert, else - update where id = 4324
-        $sql = " UPDATE comment SET comment = :comment WHERE id = :id";
+        $sql = " UPDATE comment SET comment = :comment, active = :active WHERE id = :id";
         $sth = $this->pdo->prepare($sql);
         $sth->execute(array(
             'id' => $comment->getId(),
             'comment' => $comment->getComment(),
+            'active' => $comment->getActive()
             
             ));
     }
+
+     public function removeById($id)
+     {
+         $this->pdo->query("DELETE FROM comment WHERE id = {$id}");
+     }
 }

@@ -29,6 +29,12 @@ class CommentController extends Controller
         return $this->render('index.phtml', $args);
     }
 
+    public function negativeAction(Request $request)
+    {
+        $id = $request->get('id');
+        return $this->render('negative.phtml');
+    }
+
 
 	public function editAction(Request $request)
 		{
@@ -50,8 +56,9 @@ class CommentController extends Controller
                 $comment = (new Comment())
                     ->setId($id)            		
             		->setComment($form->comment)
+                    ->setActive($form->good)
                     ;
-                   var_dump($comment);
+                  
                                 
             $repo->saveComment($comment);
             Session::setFlash('<b> Comment edit succes!</b> ');
@@ -69,6 +76,15 @@ class CommentController extends Controller
 
         );
 	}
+
+    public function deleteAction(Request $request)
+    {
+        $id = $request->get('id');
+        $comment = $this->container->get('repository_manager')->getRepository('Comment')->find($id);
+        $this->container->get('repository_manager')->getRepository('Comment')->removeById($id);
+        Session::setFlash('Comment have been deleted!');
+        Router::redirect('/admin/comment');  
+    }
 
 }
 

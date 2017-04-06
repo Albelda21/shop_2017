@@ -9,6 +9,7 @@ class Comment
 	private $email;
 	private $comment;
 	private $created;
+    private $active;
 
 	 /**
      * @return mixed
@@ -101,6 +102,25 @@ class Comment
     public function setCreated($created)
     {
         $this->created = $created;
+        
+        return $this;
+    }
+
+     /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param mixed $id
+     * @return $this
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
         
         return $this;
     }

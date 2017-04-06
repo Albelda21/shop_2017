@@ -67,6 +67,8 @@ class BookController extends Controller
                         ->setBookId($_GET['id'])
                         ->setEmail($form->email)
                         ->setComment($form->comment)     
+                        ->setActive($form->good)
+
                     ;
                     
                     $repo->save($comment);

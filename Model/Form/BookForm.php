@@ -11,6 +11,7 @@ class BookForm
     public $description;
     public $price;
     public $sale;
+    public $style;
     
     
     public function __construct(Request $request)
@@ -20,6 +21,7 @@ class BookForm
         $this->description = $request->post('description');
         $this->price = $request->post('price');
         $this->sale = $request->post('sale');
+        $this->style = $request->post('style');
     }
     
     /**

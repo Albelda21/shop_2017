@@ -8,12 +8,16 @@ class CommentForm
 {
     public $email;
     public $comment;
+    public $good;
+    
     
    
     public function __construct(Request $request)
     {
         $this->comment = $request->post('comment');
         $this->email = $request->post('email');
+        $this->good = $request->post('good');
+        
     }
     
    

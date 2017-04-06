@@ -55,7 +55,7 @@
         try {
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $stmt = $conn->prepare("SELECT comment FROM comment WHERE books_id = '" . $_GET['id'] . "'"); 
+            $stmt = $conn->prepare("SELECT comment FROM comment WHERE books_id = '" . $_GET['id'] . "' and active=1"); 
             $stmt->execute();
 
             // set the resulting array to associative
@@ -97,6 +97,9 @@
                         <textarea name="comment" class="form-control" rows="5" id="comment"></textarea>
                         <label for="email">Email:</label>
                         <input type="email" name="email" class="form-control" required>
+                            <h3>Give your assessment of this book</h3><br>
+                    <input type="radio" name="good" value="1"> Yes, good one!<br>
+                    <input type="radio" name="good" value="0"> Nope, i don't like it!<br>
                     </div>
                 <button name="button" class="btn btn-primary" >Send comment</button>
         </form>

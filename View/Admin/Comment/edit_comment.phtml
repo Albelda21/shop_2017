@@ -10,12 +10,12 @@
 
 <form method="post">
     ID :<input type="" name="id" value="<?=$request->get('id')?>" disabled><br>
+
     
     Comment :<textarea name="comment" class="form-control"  rows="5"><?=$comment->getComment()?></textarea>
-    Is active? : <select name="active">
-                    <option value="0">Not active</option>
-                    <option value="1">Active</option>
-               </select><br><br>
+    Is active? : <?=$comment->getActive()?><br>
+		<input type="radio" name="good" value="0"> Choose this to deactivae comemnt!<br>
+        <input type="radio" name="good" value="1">Choose this to make comment be an active!<br>
 
     <button>SAVE</button>
     

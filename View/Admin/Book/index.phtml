@@ -1,3 +1,4 @@
+<h2 style="color: red; text-align: center;"><?=\Library\Session::getFlash()?></h2><hr>
 <table width='100%'>
     <tr>
         <th>Title</th>
@@ -27,7 +28,7 @@
         <td>
             <a class="btn btn-primary btn-xs" href="/admin/books/edit/<?=$book->getId()?>">Edit... </a>
             
-            <a class="btn btn-danger btn-xs" href="/admin/books/delete/<?=$book->getId()?>">Delete</a><br><br>
+            <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')" href='/admin/book/delete/<?=$book->getId()?>'>Delete</a>
            
            
         </td>

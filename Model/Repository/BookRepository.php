@@ -148,11 +148,6 @@ class BookRepository extends EntityRepository
             ));
     }
 
-    public function removeById()
-    {
-        echo 'Yes we did it!';
-    }
-
     public function topComments()
     {
         $sth = $this->pdo->query('SELECt title, books_id, COUNT(comment) FROM comment JOIN books On comment.books_id=books.id GROUP BY books_id ORDER BY sum(comment) desc limit 2');
@@ -174,6 +169,28 @@ class BookRepository extends EntityRepository
         return $topcomments;
 
     }
+
+    public function add($object, $table = null)
+    {
+        $class = explode('\\', get_class($object)); // Model\Feedback
+        $class = end($class);
+        $table = strtolower($class);
+        
+        $sql = 'insert into books (title, description, price, sale, style_id) values (:title, :description, :price, :sale, :style_id)';
+        $sth = $this->pdo->prepare($sql);
+        $sth->execute(array(
+            'title' => $object->getTitle(),
+            'description' => $object->getDescription(),
+            'price' => $object->getPrice(),
+            'sale' => $object->getSale(),
+            'style_id' => $object->getStyle()
+           
+        ));
+    }
+
+     public function removeById($id){
+         $this->pdo->query("DELETE FROM books WHERE id = {$id}");
+     }
 
 
     // SELECt title, books_id, COUNT(comment) FROM comment JOIN books On comment.books_id=books.id GROUP BY books_id ORDER BY sum(comment) desc limit 2
