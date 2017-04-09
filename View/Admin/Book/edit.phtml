@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title></title>
+	<script type="text/javascript">$("input").prop('disabled', true);</script>
 </head>
 <body>
 <div class="container">
@@ -13,13 +14,28 @@
 	TITLE :<input type="text" name="title" value="<?=$book->getTitle()?>"><br>
 	Price : <input type="text" name="price" value="<?=$book->getPrice()?>"><br>
 	Sale : <input type="text" name="sale" value="<?=$book->getSale()?>"><br>
-	DESCRIPTION :<textarea name="description" class="form-control"  rows="5" ><?=$book->getDescription()?></textarea>
+	DESCRIPTION :<textarea name="description" class="form-control"  rows="5" ><?=$book->getDescription()?></textarea><br>
+	
+	Style :<input type="text" name="style" 
+	value="<?php if ($book->getStyle() == 1): ?>
+		<?php echo 'Horror Style' ?>
+	<?php else: ?>
+		<?php echo 'Art Style' ?>
+	<?php endif ?>"><br> 
+
+
+
+		<input type="radio" name="style" value="1" required="required"> Horror Style<br>
+    	<input type="radio" name="style" value="2" required="required"> Art Style<br><br>
 
 	<button>SAVE</button>
 	<!--<a class="btn btn-primary btn-xs" href="/admin/books/save/<?=$book->getId()?>">Save</a>-->
 </form>
 
 </div>
+
 </body>
 </html>
+
+
 

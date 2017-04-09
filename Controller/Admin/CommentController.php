@@ -31,8 +31,19 @@ class CommentController extends Controller
 
     public function negativeAction(Request $request)
     {
-        $id = $request->get('id');
-        return $this->render('negative.phtml');
+       if (!Session::has('user')) {
+            $this->container->get('router')->redirect('/login');
+        }
+        if (Session::get('user') !== 'admin@adminka.com') {
+            $this->container->get('router')->redirect('/');
+        }
+        
+        $repo = $this->container->get('repository_manager')->getRepository('Comment');
+        $comments = $repo->findNotActive();
+        
+        $args = ['comments' => $comments];
+        
+        return $this->render('negative.phtml', $args);
     }
 
 
@@ -77,6 +88,47 @@ class CommentController extends Controller
         );
 	}
 
+    public function badeditAction(Request $request)
+        {
+
+        if (!Session::has('user')) {
+            $this->container->get('router')->redirect('/login');
+        }
+        if (Session::get('user') !== 'admin@adminka.com') {
+            $this->container->get('router')->redirect('/');
+        }
+
+        $id = $request->get('id');
+        $comment = $this->container->get('repository_manager')->getRepository('Comment')->find($id);
+        $repo = $this->container->get('repository_manager')->getRepository('Comment');
+        $form = new CommentForm($request);
+        
+         if ($request->isPost()) {
+            if ($form->isValid()) {
+                $comment = (new Comment())
+                    ->setId($id)                    
+                    ->setComment($form->comment)
+                    ->setActive($form->good)
+                    ;
+                  
+                                
+            $repo->saveComment($comment);
+            Session::setFlash('<b> Comment edit succes!</b> ');
+            }
+        }
+
+        
+
+    return $this->render('edit_comment.phtml', 
+        [
+        'comment' => $comment, 
+        'request' => $request, 
+        'form' =>$form
+        ]
+
+        );
+    }
+
     public function deleteAction(Request $request)
     {
         $id = $request->get('id');
@@ -85,6 +137,17 @@ class CommentController extends Controller
         Session::setFlash('Comment have been deleted!');
         Router::redirect('/admin/comment');  
     }
+
+    public function baddeleteAction(Request $request)
+    {
+        $id = $request->get('id');
+        $comment = $this->container->get('repository_manager')->getRepository('Comment')->find($id);
+        $this->container->get('repository_manager')->getRepository('Comment')->removeById($id);
+        Session::setFlash('Comment have been deleted!');
+        Router::redirect('/admin/negative');  
+    }
+
+    
 
 }
 

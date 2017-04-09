@@ -106,6 +106,7 @@ class BookRepository extends EntityRepository
                 ->setDescription($row['description'])
                 ->setPrice($row['price'])                
                 ->setSale($row['sale'])
+                ->setStyle($row['style_id'])
             ;
             
             
@@ -131,20 +132,22 @@ class BookRepository extends EntityRepository
             ->setPrice($data['price'])            
             ->setDescription($data['description'])
             ->setSale($data['sale'])
+            ->setStyle($data['style_id'])
             ;
     }
     
     public function save(Book $book)
     {
         // if id === null - insert, else - update where id = 4324
-        $sql = " UPDATE books SET title = :title, description = :description, price = :price, sale = :sale   WHERE id = :id";
+        $sql = " UPDATE books SET title = :title, description = :description, price = :price, sale = :sale, style_id = :style_id   WHERE id = :id";
         $sth = $this->pdo->prepare($sql);
         $sth->execute(array(
             'id' => $book->getId(),
             'title' => $book->getTitle(),
             'description' => $book->getDescription(),
             'price' => $book->getPrice(),
-            'sale' => $book->getSale()
+            'sale' => $book->getSale(),
+            'style_id' => $book->getStyle()
             ));
     }
 

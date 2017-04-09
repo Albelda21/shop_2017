@@ -1,1 +1,44 @@
-<h1>KEEEPO!!!</h1>
+<h2 style="color: red; text-align: center;"><?=\Library\Session::getFlash()?></h2><hr>
+<table width='100%'>
+    <tr>
+        <th>Uniq ID</th>
+        <th>Book id</th>
+        <th>Comment</th>
+        <th>Active</th>
+        <th>Actions</th>
+    </tr>
+    <?php foreach ($comments as $book) : ?>
+    <tr>
+        <td>
+            <?=$book->getId();?>
+            <hr>
+        </td>
+        <td>
+            <?=$book->getBookId();?>
+            <hr>
+        </td>
+        <td >
+       	<?=$book->getComment();?>
+            
+            <hr>
+        </td>
+        <td style="color: red;">
+        <?=$book->getActive();?>
+            
+            <hr>
+        </td>
+        <td>
+            <a class="btn btn-primary btn-xs" href="/admin/badcomment/edit/<?=$book->getId()?>">Edit... </a>
+            
+            <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure?')" href='/admin/badcomment/delete/<?=$book->getId()?>'>Delete</a>
+           
+           
+           
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+
+
+

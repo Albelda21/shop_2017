@@ -116,4 +116,26 @@ class CommentRepository extends EntityRepository
      {
          $this->pdo->query("DELETE FROM comment WHERE id = {$id}");
      }
+
+     public function findNotActive()
+    {
+        $sth = $this->pdo->query('select * from comment where active=0');
+        $comments = [];
+        
+        while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+                        
+            $comment = (new Comment())
+                ->setId($row['id'])
+                ->setBookId($row['books_id'])
+                ->setEmail($row['email'])
+                ->setComment($row['comment'])  
+                ->setActive($row['active'])              
+            ;
+            
+            
+            $comments[] = $comment;
+        }
+
+        return $comments;
+    }
 }

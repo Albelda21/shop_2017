@@ -3,6 +3,7 @@
     <tr>
         <th>Title</th>
         <th>Price</th>
+        <th>Style</th>
         <th>Sale</th>
         <th>Actions</th>
     </tr>
@@ -14,6 +15,14 @@
         </td>
         <td>
             <?=$book->getPrice();?>
+            <hr>
+        </td>
+         <td>
+           <?php if ( $book->getStyle() == 1): ?>
+               <?php echo "Horror Style" ?>
+           <?php else: ?>
+            <?php echo "Art Style" ?>
+           <?php endif ?>
             <hr>
         </td>
         <td >

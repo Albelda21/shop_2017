@@ -51,6 +51,7 @@ class BookController extends Controller
                     ->setDescription($form->description)
                     ->setPrice($form->price)
                     ->setSale($form->sale)
+                    ->setStyle($form->style)
                 ;
                               
                 $repo->save($book);
