@@ -176,12 +176,41 @@ window.onclick = function(event) {
 
 <?php else: ?>
     <h1>My cart</h1>
+    <?php if (!empty($_COOKIE['books'])): ?>
+        <h2>Make an order <a href="/cart/order"><span class="glyphicon glyphicon-thumbs-up"></span></a></h2>
+    <?php endif ?>
+
+    <?php if (!empty($_COOKIE['books'])): ?>
+        <h3>Clear cart <a href="/cart/delete/" onclick="return confirm('Are you sure?')"><span class="glyphicon glyphicon-trash"></span></a></h3>    
+    <?php endif ?>
+    
+    
 <hr>
+   
 
     <?php foreach ($books as $book): ?>
-        <b><?=$book->getId();?></b> - <?=$book->getTitle();?> <br>
+
+          <div class="col-md-3">
+            <div class="thumbnail" style="height:420px;">
+                <img class="img-responsive" src="http://d39kbiy71leyho.cloudfront.net/wp-content/uploads/2016/05/09170020/cats-politics-TN.jpg"></img>
+                <div class="caption">
+                    <h3><?=$book->getTitle()?></h3>
+                    <p><?=$book->getPrice()?></p>
+
+                    <p><?php if ( $book->getSale() != null): ?>
+                         <p><b>Sale </b>: <?=$book->getSale()?></p>
+                    <?php endif ?></p>
+
+
+                    <p><b>ID:</b> <?=$book->getId()?></p>
+                </div>
+            </div>
+        </div>
+
     <?php endforeach; ?>
     <br>
 <?php endif;?>
+ 
+
 
 

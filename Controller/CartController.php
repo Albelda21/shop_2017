@@ -4,7 +4,12 @@ namespace Controller;
 
 use Library\Controller;
 use Library\Request;
+use Library\Session;
+use Library\Router;
 use Model\Cart;
+use Model\Order;
+use Library\Cookie;
+use Model\Form\OrderForm;
 
 class CartController extends Controller
 {
@@ -15,6 +20,7 @@ class CartController extends Controller
         $cart = new Cart();
         $cart->addProduct($id);
         
+        Session::setFlash('Book has been added');
         $this->container->get('router')->redirect("/book-{$id}.html");
     }
     
@@ -36,17 +42,39 @@ class CartController extends Controller
     {
         
     }
+
+     public function deleteAction(Request $request)
+    {
+       Cookie::delete('books');
+       Router::redirect('/cart');
+    }
     
     // maybe OrderController
     public function orderAction(Request $request)
     {
-        /**
-         * 1. Order table in DB  (id, user-data(?), email, order_item_id, created, status)
-         * 2. OrderItem table (id, product_id, price)
-         * 3. Form, Model
-         * 
-         * 
-         * 
-         **/ 
+        $form = new OrderForm($request);
+        $repo = $this->container->get('repository_manager')->getRepository('Cart');
+
+        if ($request->isPost()) {
+            if ($form->isValid()) {
+                $order = (new Order())
+                    ->setName($form->name)
+                    ->setSurname($form->surname)
+                    ->setEmail($form->email)
+                    ->setPhone($form->phone)                   
+                    
+                ;
+                
+                $repo->save($order);
+                Session::setFlash('Gotcha! We will call you soon!');
+                Cookie::delete('books');
+                $this->container->get('router')->redirect('/');
+            }
+            
+            Session::setFlash('Fill the fields');
+        }
+
+
+       return $this->render('order.phtml', ['form' => $form]);
     }
 }

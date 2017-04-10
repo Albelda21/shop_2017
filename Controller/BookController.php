@@ -75,9 +75,6 @@ class BookController extends Controller
                     Session::setFlash('<div class="alert alert-success">
                                      <strong>Success!</strong> Comment saved!.
                                     </div>');
-
-
-
                     $this->container->get('router')->redirect("/horror-{$id}.html");
                 }
 

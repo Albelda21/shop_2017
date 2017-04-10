@@ -49,9 +49,9 @@ class BookRepository extends EntityRepository
                 ->setId($row['id'])
                 ->setTitle($row['title'])
                 ->setDescription($row['description'])
-                ->setPrice($row['price'])
-                
+                ->setPrice($row['price'])                
                 ->setStyle($row['style_id'])
+                ->setSale($row['sale'])
             ;
             
             $books[] = $book;

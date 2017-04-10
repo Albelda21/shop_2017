@@ -8,7 +8,9 @@ return  array(
     'index' => new Route('/index.php', 'Site', 'index'),
 
     'horror' => new Route('/horror', 'Book', 'horror'),
+    'art' => new Route('/art', 'Book', 'index'),
     'horror_page' => new Route('/horror-{id}\.html', 'Book', 'show', array('id' => '[0-9]+') ),
+    'art_page' => new Route('/art-{id}\.html', 'Book', 'show', array('id' => '[0-9]+') ),
 
     'books_list' => new Route('/books', 'Book', 'index'),
     'book_page' => new Route('/book-{id}\.html', 'Book', 'show', array('id' => '[0-9]+') ),
@@ -19,6 +21,8 @@ return  array(
     'logout' => new Route('/logout', 'Security', 'logout'),
     'cart_list' => new Route('/cart', 'Cart', 'showList'),
     'cart_add' => new Route('/cart/add/{id}', 'Cart', 'add', array('id' => '[0-9]+')),
+    'cart_delete' => new Route('/cart/delete/', 'Cart', 'delete'),
+    'cart_order' => new Route('/cart/order', 'Cart', 'order'),
 
     
 

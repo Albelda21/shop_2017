@@ -54,7 +54,8 @@ abstract class Controller
     {
         // $cartService = $this->container->get('cart_service');
         // return $cartService->count();
-       return count($_COOKIE);
+       return isset($_COOKIE['books']) ? count(unserialize($_COOKIE['books'])) : Null;
+      
     }
     
     public function getTitle()
