@@ -51,15 +51,13 @@ class BookController extends Controller
     {
         $repo = $this->container->get('repository_manager')->getRepository('Book');
         $id = $request->get('id');
-        $book = $repo->find($id);
-
-        // $repoz = $this->container->get('repository_manager')->getRepository('Comment');
-        // $id = $request->get('id');
-        // $comment = $repoz->findComment($id);
+        $book = $repo->find($id);      
+        
 
         $form = new CommentForm($request);
         $repo = $this->container->get('repository_manager')->getRepository('Comment');
-        
+        //$comment = $repo->findComment($id);
+
         if (\Library\Session::has('user')) {     
             if ($request->isPost()) {
                 if ($form->isValid()) {

@@ -11,7 +11,7 @@
     <link rel="icon" href="../../favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-    <title><?=$this->getTitle()?></title>
+    <title><?//$this->getTitle()?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -80,7 +80,7 @@
             <?php if(\Library\Session::has('user') && \Library\Session::get('user') === 'admin@adminka.com') : ?>
                     <li class="active"><a href="/admin">Admin Panel</a></li>
             <?php endif?>
-                <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> My Cart (<?=$this->getCartCount()?>)</a></li>
+                <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> My Cart (<?//$this->getCartCount()?>)</a></li>
             </ul>
             
         </div><!--/.nav-collapse -->

@@ -4,6 +4,7 @@ namespace Model\Repository;
 
 use Library\EntityRepository;
 use Model\Comment;
+use Library\Session;
 
 class CommentRepository extends EntityRepository
 {

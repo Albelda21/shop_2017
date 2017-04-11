@@ -19,10 +19,12 @@ class SiteController extends Controller
         $repo = $this->container->get('repository_manager')->getRepository('Book');
         $first = $repo->findNumb('1', '5');
         $second = $repo->findNumb('2', '5');
+        $top = $repo->topCommentedBooks();
+       
 
 
         
-        $args = ['first' => $first, 'second' => $second];
+        $args = ['first' => $first, 'second' => $second, 'top' => $top];
 
         return $this->render('index.phtml',  $args);
     }

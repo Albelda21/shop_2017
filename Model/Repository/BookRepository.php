@@ -5,6 +5,7 @@ namespace Model\Repository;
 use Model\Book;
 use Library\EntityRepository;
 use Library\Session;
+use Model\Comment;
 
 class BookRepository extends EntityRepository
 {
@@ -151,17 +152,18 @@ class BookRepository extends EntityRepository
             ));
     }
 
-    public function topComments()
+    public function topCommentedBooks()
     {
-        $sth = $this->pdo->query('SELECt title, books_id, COUNT(comment) FROM comment JOIN books On comment.books_id=books.id GROUP BY books_id ORDER BY sum(comment) desc limit 2');
+        $sth = $this->pdo->query('SELECt b.id, title, price, books_id, COUNT(comment) FROM comment c JOIN books b On c.books_id=b.id GROUP BY books_id ORDER BY COUNT(comment) DESC LIMIT 3');
         $topcomments = [];
         
         while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
                         
-            $top = (new Comment())
-                ->setTitle((new Book)->getTitle)
-                ->setBookId($row['books_id'])
-                ->setComment($row['comment'])
+            $top = (new Book())
+                ->setId($row['id'])
+                ->setTitle($row['title'])
+                ->setPrice($row['price'])
+                
                
             ;
             

@@ -121,6 +121,22 @@
 
     </div><!-- /.container -->
 
+    <div class="container" style="margin-top: 30px;">
+    <h2>Top three most commented books</h2>
+      <?php foreach ($top as $value): ?>
+          <div class="col-md-3">
+            <div class="thumbnail" style="height:320px;">
+                <a href="/horror-<?=$value->getId()?>.html"><img class="img-responsive" src="http://d39kbiy71leyho.cloudfront.net/wp-content/uploads/2016/05/09170020/cats-politics-TN.jpg"></img></a>
+                <div class="caption">
+                 <b>Id</b>: <?php echo $value->getId() ?><br>
+                 Title: <?php echo $value->getTitle() ?><br>
+                 Price: <?php echo $value->getPrice() ?>
+                </div>
+            </div>
+        </div>
+      <?php endforeach ?>
+
+    </div>
 
   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
